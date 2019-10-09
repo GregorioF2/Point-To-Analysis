@@ -9,6 +9,12 @@ public class Main {
         Object o = new Object();
         Is.sensible(o);
         System.out.println(o);
+
+        Is.sanitize(o);
+        System.out.println(o);
+
+        Is.sensible(o);
+        System.out.println(o);
     }
 
 }

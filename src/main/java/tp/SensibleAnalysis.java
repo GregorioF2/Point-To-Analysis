@@ -16,9 +16,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * TODO: Chequear porqué me devuelve la linea -1 para cuando hay un warning leak
- */
 
 public class SensibleAnalysis extends ForwardFlowAnalysis<Unit, HashMap<String, SensibleLattice>> {
     private HashMap<String, SensibleLattice> localsAsLattice;
