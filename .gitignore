@@ -1,0 +1,4 @@
+target/*
+sootOutput/*
+*.iml
+.idea/*
