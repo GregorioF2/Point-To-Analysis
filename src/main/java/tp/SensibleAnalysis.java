@@ -58,13 +58,12 @@ public class SensibleAnalysis extends ForwardFlowAnalysis<Unit, HashMap<String, 
         if (thereIsSensibleVariable) {
             System.out.println("\n> Sensible variable on method\n" + this.method.getName() +
                     " and instruction " + unit.toString());
-            System.out.println("Locals as lattice: " + src.toString() + "\n\n");
         }
 
         if (statementVisitor.thereIsPossibleLeak()) {
             posibbleLeaks.push(unit);
             int lineNumber = UnitUtils.getLineNumberFromUnit(unit);
-            System.out.println("\n> WARNING: possible leak on line number\n" + lineNumber);
+            System.out.println("\n> WARNING: possible leak on line number: " + lineNumber + ".\n");
         }
 
         dest.clear();

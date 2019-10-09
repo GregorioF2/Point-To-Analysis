@@ -2,6 +2,9 @@ package tp.utils;
 
 import soot.Unit;
 import soot.tagkit.LineNumberTag;
+import soot.tagkit.Tag;
+
+import java.util.List;
 
 /**
  * Utils file for working with {@link Unit}s
