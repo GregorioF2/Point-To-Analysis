@@ -18,7 +18,6 @@ import java.util.List;
 
 /**
  * TODO: Chequear porqué me devuelve la linea -1 para cuando hay un warning leak
- * TODO: Cambiar git repository a un repo propio
  */
 
 public class SensibleAnalysis extends ForwardFlowAnalysis<Unit, HashMap<String, SensibleLattice>> {
