@@ -27,6 +27,7 @@ public class ValueVisitor {
         return this.possibleLeak;
     }
 
+    // The value returned is if the statement creates a new sensible local variable
     public boolean visit(Value value) {
         if (value instanceof BinopExpr) {
             return visitBinOpExp((BinopExpr) value);
@@ -81,11 +82,14 @@ public class ValueVisitor {
             return handlePrintln(expr);
         }
 
-        return SensibleAnalysis.analyse(
+        SensibleAnalysis analysis =  SensibleAnalysis.analyse(
                 expr.getMethod().getActiveBody(),
                 this.parametersAsLattice(expr)
-            )
-                .hasPossibleLeak();
+            );
+
+        possibleLeak = analysis.hasPossibleLeak();
+
+        return analysis.returnsSensible();
     }
 
     private boolean handleSanitize(InvokeExpr expr) {

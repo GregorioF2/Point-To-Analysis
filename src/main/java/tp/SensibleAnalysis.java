@@ -22,6 +22,7 @@ public class SensibleAnalysis extends ForwardFlowAnalysis<Unit, HashMap<String, 
     private LinkedList<Unit> posibbleLeaks;
     private SootMethod method;
     private HashMap<Integer, SensibleLattice> methodParams;
+    private boolean returnsSensible = false;
 
     public static SensibleAnalysis analyse(Body body) {
         return new SensibleAnalysis(new ExceptionalUnitGraph(body), new HashMap<>());
@@ -52,15 +53,22 @@ public class SensibleAnalysis extends ForwardFlowAnalysis<Unit, HashMap<String, 
         StatementVisitor statementVisitor = new StatementVisitor(src, methodParams);
         boolean thereIsSensibleVariable = statementVisitor.visit((Stmt) unit);
 
+        /*
         if (thereIsSensibleVariable) {
             System.out.println("\n> Sensible variable on method\n" + this.method.getName() +
                     " and instruction " + unit.toString());
         }
+        */
+
 
         if (statementVisitor.thereIsPossibleLeak()) {
             posibbleLeaks.push(unit);
             int lineNumber = UnitUtils.getLineNumberFromUnit(unit);
             System.out.println("\n> WARNING: possible leak on line number: " + lineNumber + ".\n");
+        }
+
+        if (statementVisitor.returnSensible()) {
+            this.returnsSensible = true;
         }
 
         dest.clear();
@@ -96,6 +104,10 @@ public class SensibleAnalysis extends ForwardFlowAnalysis<Unit, HashMap<String, 
 
     public boolean hasPossibleLeak() {
         return posibbleLeaks.size() > 0;
+    }
+
+    public boolean returnsSensible() {
+        return this.returnsSensible;
     }
 
     public List<Unit> getPosibleLeaksUnits() {

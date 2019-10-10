@@ -11,6 +11,7 @@ public class StatementVisitor {
     private HashMap<String, SensibleLattice> localsLatticeMap;
     private HashMap<Integer, SensibleLattice> methodParams;
     private ValueVisitor valueVisitor;
+    private boolean returnsSensible = false;
 
     public StatementVisitor(HashMap<String, SensibleLattice> locals,
                             HashMap<Integer, SensibleLattice> params) {
@@ -23,6 +24,7 @@ public class StatementVisitor {
         return this.valueVisitor.thereIsPossibleLeak();
     }
 
+    // The value returned is if the statement creates a new sensible local variable
     public boolean visit(Stmt statement) {
         if (statement instanceof DefinitionStmt) {
             return visitDefinition((DefinitionStmt) statement);
@@ -36,7 +38,9 @@ public class StatementVisitor {
 
     private boolean visitReturn(ReturnStmt statement) {
         Value value = statement.getOp();
-        return valueVisitor.visit(value);
+        boolean isSensible =  valueVisitor.visit(value);
+        returnsSensible = isSensible;
+        return  isSensible;
     }
 
     private boolean visitInvoke(InvokeStmt statement) {
@@ -57,6 +61,10 @@ public class StatementVisitor {
         }
 
         return false;
+    }
+
+    public boolean returnSensible() {
+        return returnsSensible;
     }
 
 }
