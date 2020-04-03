@@ -7,7 +7,7 @@
   - install https://github.com/shyiko/jabba
   - run jabba install zulu@1.8.92
 
-```(with higher version of have the following error appear `java.lang.RuntimeException: Error: cannot find rt.jar.`. Error kindof explained in here https://github.com/eclipse-cognicrypt/CogniCrypt/issues/202#issuecomment-431386825)```
+```(With higher version of java, the following error appear `java.lang.RuntimeException: Error: cannot find rt.jar.`. Error kindof explained in here https://github.com/eclipse-cognicrypt/CogniCrypt/issues/202#issuecomment-431386825)```
 
 **Run the analysis**
 
