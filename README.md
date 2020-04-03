@@ -6,6 +6,7 @@ maven:
 Java 8:
   - install https://github.com/shyiko/jabba
   - run jabba install zulu@1.8.92
+
 (with higher version of have the following error appear `java.lang.RuntimeException: Error: cannot find rt.jar.`. Error kindof explained in here https://github.com/eclipse-cognicrypt/CogniCrypt/issues/202#issuecomment-431386825)
 
 Leak sensible vairables analysis.
