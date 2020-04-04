@@ -20,3 +20,9 @@ mvn clean install compile
 
 java -cp target/leak-analysis-1.0-SNAPSHOT-jar-with-dependencies.jar  Launcher -keep-line-number -f J -w -pp -cp target/classes/ examples.Main
 ```
+
+
+**To install Datalog** (Docs:  https://www.ccs.neu.edu/home/ramsdell/tools/datalog/datalog.html)
+- Download: https://wwu-pi.github.io/tutorials/lectures/lsp/020_install_des.html
+- Use zulu@1.8.92
+- sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
