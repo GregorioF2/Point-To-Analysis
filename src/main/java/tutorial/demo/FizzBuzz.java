@@ -6,7 +6,8 @@ public class FizzBuzz {
             intVal +=1; // System.out.println("FizzBuzz");
         Test firstTestVar = new Test();
         Test2 secondTestVar = new Test2();
-        Test thirdTestVar = new Test();
+
+        firstTestVar.prop = secondTestVar;
     }
 
     public void fizzBuzz(int n){
@@ -14,8 +15,12 @@ public class FizzBuzz {
             printFizzBuzz(i);
     }
 }
-
 class Test {
+    public Test2 prop;
+    public static int TestFunc(){
+        return 45;
+    }
+
     public int testMethod(int k) {
         return k;
     }

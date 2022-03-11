@@ -1,0 +1,10 @@
+.decl var(x: symbol)
+var("x").
+var("y").
+
+.decl var2(x: symbol)
+var2("x").
+
+.decl foo(z: symbol)
+foo(z) :- var(z), var2(z).
+.output foo
