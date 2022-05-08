@@ -22,15 +22,18 @@ public class DatalogIntegrator {
         File file = new File(path);
         file.mkdirs();
 
-        this.createFW("alloc");
-        this.createFW("move");
-        this.createFW("load");
-        this.createFW("store");
+        this.createFW("alloc", ".facts");
+        this.createFW("move", ".facts");
+        this.createFW("load", ".facts");
+        this.createFW("store", ".facts");
+        this.createFW("vcall", ".facts");
+        this.createFW("reachable", ".facts");
+        this.createFW("formal_arg", ".facts");
     }
 
-    private void createFW(String key) {
+    private void createFW(String key, String extension) {
         try {
-            String filePath = this.dirPath + "/" + key + ".facts";
+            String filePath = this.dirPath + "/" + key + extension;
             File allocFacts = new File(filePath);
             allocFacts.createNewFile();
             FileWriter fw = new FileWriter(filePath,true);
@@ -41,28 +44,28 @@ public class DatalogIntegrator {
         }
     }
 
-    private void wirteAlloc(soot.Local leftOp, soot.jimple.NewExpr rightOp) {
+    private void wirteAlloc(String inMeth, soot.Local leftOp, soot.jimple.NewExpr rightOp) {
         try {
             FileWriter fw = this.fwMap.get("alloc");
             System.out.println("New expr: " + rightOp.toString());
-            fw.write(leftOp.getName() + " " + rightOp.getType().getNumber() + "\n");
+            fw.write(Utils.writeFact(Utils.varName(inMeth, leftOp.getName()), String.valueOf(rightOp.getType().getNumber()) ));
         } catch (IOException e) {
             System.out.println("Error: " + e.toString());
             e.printStackTrace();
         }
     }
 
-    private void writeMove(soot.Local l, soot.Local r) {
+    private void writeMove(String inMeth, soot.Local l, soot.Local r) {
         try {
             FileWriter fw = this.fwMap.get("move");
-            fw.write(l.getName() + " " + r.getName() + "\n");
+            fw.write(Utils.writeFact(Utils.varName(inMeth, l.getName()), Utils.varName(inMeth, r.getName())));
         } catch (IOException e) {
             System.out.println("Error: " + e.toString());
             e.printStackTrace();
         }
     }
 
-    private void writeLoad(soot.Local l, soot.jimple.InstanceFieldRef r) {
+    private void writeLoad(String inMeth, soot.Local l, soot.jimple.InstanceFieldRef r) {
         try {
             FileWriter fw = this.fwMap.get("load");
             soot.Value base = r.getBase();
@@ -70,14 +73,14 @@ public class DatalogIntegrator {
                 System.out.println("Error write Load, base not local");
                 return;
             }
-            fw.write(l.getName() + " " + ((soot.Local)base).getName() + " " + r.getField().getName() + "\n");
+            fw.write(Utils.writeFact(Utils.varName(inMeth, l.getName()), Utils.varName(inMeth, ((soot.Local)base).getName()), r.getField().getName()));
         } catch (IOException e) {
             System.out.println("Error: " + e.toString());
             e.printStackTrace();
         }
     }
     
-    private void writeStore(soot.jimple.InstanceFieldRef l, soot.Local r) {
+    private void writeStore(String inMeth, soot.jimple.InstanceFieldRef l, soot.Local r) {
         try {
             FileWriter fw = this.fwMap.get("store");
             soot.Value base = l.getBase();
@@ -85,7 +88,18 @@ public class DatalogIntegrator {
                 System.out.println("Error write Store, base not local");
                 return;
             }
-            fw.write(((soot.Local)base).getName() + " " + l.getField().getName() + " " + r.getName() + "\n");
+            fw.write(Utils.writeFact(Utils.varName(inMeth, ((soot.Local)base).getName()), l.getField().getName(), Utils.varName(inMeth, r.getName()))
+            );
+        } catch (IOException e) {
+            System.out.println("Error: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    private void writeVCall(String base, String sig, int line, String inMeth) {
+        try {
+            FileWriter fw = this.fwMap.get("vcall");
+            fw.write(Utils.writeFact(Utils.varName(inMeth, base), sig, String.valueOf(line), inMeth));
         } catch (IOException e) {
             System.out.println("Error: " + e.toString());
             e.printStackTrace();
@@ -93,16 +107,14 @@ public class DatalogIntegrator {
     }
 
     private static void LogInfo(soot.jimple.AssignStmt u) {
-        System.out.println("----> u: " + u.toString());
-        infoLogger.loggStmtType(u);
-        System.out.println("----> left:");
-        infoLogger.loggExpType(u.getLeftOp());
-        System.out.println("----> right:");
-        infoLogger.loggExpType(u.getRightOp());
-        System.out.println("======");
+        // System.out.println("----> left:");
+        // infoLogger.loggExpType(u.getLeftOp());
+        // System.out.println("----> right:");
+        // infoLogger.loggExpType(u.getRightOp());
+        // System.out.println("======");
     }
 
-    public void WriteFact(soot.jimple.AssignStmt expr) {
+    public void WriteStmtFact(soot.jimple.AssignStmt expr, String inMeth, int line) {
         DatalogIntegrator.LogInfo(expr);
 
         soot.Value leftOp = expr.getLeftOp();
@@ -113,19 +125,51 @@ public class DatalogIntegrator {
                 System.out.println("Left op on assignmt is not local:  " + leftOp);
                 infoLogger.loggExpType(leftOp);
             } else {
-                this.wirteAlloc((soot.Local)leftOp, (soot.jimple.NewExpr)rightOp);
+                this.wirteAlloc(inMeth, (soot.Local)leftOp, (soot.jimple.NewExpr)rightOp);
             }
         } else if (rightOp instanceof soot.Local && leftOp instanceof soot.Local) {
-            this.writeMove((soot.Local)leftOp, (soot.Local) rightOp);
+            this.writeMove(inMeth, (soot.Local)leftOp, (soot.Local) rightOp);
         } else if (leftOp instanceof soot.jimple.InstanceFieldRef && rightOp instanceof soot.Local) {
-            this.writeStore((soot.jimple.InstanceFieldRef)leftOp, (soot.Local)rightOp);
+            this.writeStore(inMeth, (soot.jimple.InstanceFieldRef)leftOp, (soot.Local)rightOp);
         } else if (leftOp instanceof soot.Local && rightOp instanceof soot.jimple.InstanceFieldRef) {
-            this.writeLoad((soot.Local)leftOp, (soot.jimple.InstanceFieldRef)rightOp);
+            this.writeLoad(inMeth, (soot.Local)leftOp, (soot.jimple.InstanceFieldRef)rightOp);
+        } else if (rightOp instanceof soot.jimple.InvokeExpr) {
+            soot.jimple.InvokeExpr ie = (soot.jimple.InvokeExpr) rightOp;
+            String base;
+            if  (ie instanceof soot.jimple.StaticInvokeExpr) {
+                base = "";
+            } else {
+                soot.Local l = (soot.Local) ((soot.jimple.InstanceInvokeExpr)ie).getBase();
+                base = l.getName();
+            }
+            this.writeVCall(base, ie.getMethod().getName(), line, inMeth);
         }
         return;
     } 
 
-    public void closeWriters() {
+    public void WriteReachableFact(String methodName) {
+        try {
+            FileWriter fw = this.fwMap.get("reachable");
+            fw.write(Utils.writeFact(methodName));
+        } catch (IOException e) {
+            System.out.println("Error: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    public void WriteFormalArgFact(String methodName, int index, soot.Local var) {
+        try {
+            FileWriter fw = this.fwMap.get("formal_arg");
+            fw.write(Utils.writeFact(methodName, String.valueOf(index), Utils.varName(methodName, var.getName())));
+        } catch (IOException e) {
+            System.out.println("Error: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    //public void WriteFormalArgument(String methodName)
+
+    public void CloseWriters() {
         try {
             for (FileWriter fw : this.fwMap.values()) {
                 fw.close();
@@ -136,4 +180,21 @@ public class DatalogIntegrator {
         }
     }
 
+}
+
+class Utils {
+    static String varName(String method, String var) {
+        if (var == "") {
+            return "";
+        }
+        return method + "::" + var;
+    }
+
+    static String writeFact(String... args) {
+        String res = "";
+        for (String s: args) {
+            res += " " + s;
+        }
+        return res.trim() + "\n";
+    }
 }

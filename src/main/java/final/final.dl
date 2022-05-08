@@ -1,0 +1,19 @@
+.decl alloc(var: symbol, heap: symbol)
+.input alloc
+
+.decl move(to: symbol, from: symbol)
+.input move
+
+.decl load(to: symbol, base:symbol, field: symbol)
+.input load
+
+.decl store(base:symbol, field:symbol, from: symbol)
+.input store
+
+.decl vcall(base:symbol, sig:symbol, invocation:symbol, inMeth: symbol)
+.input vcall
+
+
+
+
+

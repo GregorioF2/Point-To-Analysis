@@ -1,13 +1,10 @@
 public class FizzBuzz {
 
+    public int fizzProp;
     public void printFizzBuzz(int k){
-        int intVal = 0;
-        if (k%15==0)
-            intVal +=1; // System.out.println("FizzBuzz");
-        Test firstTestVar = new Test();
-        Test2 secondTestVar = new Test2();
+        this.fizzProp = 2;
 
-        firstTestVar.prop = secondTestVar;
+        Test2 t = new Test2();
     }
 
     public void fizzBuzz(int n){
@@ -17,6 +14,10 @@ public class FizzBuzz {
 }
 class Test {
     public Test2 prop;
+    public int testNumber;
+    public Test(int k) {
+        this.testNumber = k;
+    }
     public static int TestFunc(){
         return 45;
     }
