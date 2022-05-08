@@ -9,6 +9,7 @@ import soot.jimple.*;
 import soot.shimple.PhiExpr;
 import soot.shimple.PiExpr;
 import soot.shimple.ShimpleExpr;
+import java.util.*;
 
 public class infoLogger {
     public static void loggExpType (Value value) {
@@ -84,5 +85,84 @@ public class infoLogger {
         if (unit instanceof ReturnVoidStmt) System.out.println("---> Unit is instanceof ReturnVoidStmt");
         if (unit instanceof TableSwitchStmt) System.out.println("---> Unit is instanceof TableSwitchStmt");
         if (unit instanceof ThrowStmt) System.out.println("---> Unit is instanceof ThrowStmt");
+    }
+
+    public static List<String> stmtTypes (Unit unit) {
+        List<String> list = new ArrayList<String> (); 
+        if (unit instanceof AssignStmt) list.add("AssignStmt");
+        if (unit instanceof BreakpointStmt) list.add("BreakpointStmt");
+        if (unit instanceof DefinitionStmt) list.add("DefinitionStmt");
+        if (unit instanceof EnterMonitorStmt) list.add("EnterMonitorStmt");
+        if (unit instanceof ExitMonitorStmt) list.add("ExitMonitorStmt");
+        if (unit instanceof GotoStmt) list.add("GotoStmt");
+        if (unit instanceof IdentityStmt) list.add("IdentityStmt");
+        if (unit instanceof IfStmt) list.add("IfStmt");
+        if (unit instanceof InvokeStmt) list.add("InvokeStmt");
+        if (unit instanceof LookupSwitchStmt) list.add("LookupSwitchStmt");
+        if (unit instanceof MonitorStmt) list.add("MonitorStmt");
+        if (unit instanceof NopStmt) list.add("NopStmt");
+        if (unit instanceof RetStmt) list.add("RetStmt");
+        if (unit instanceof ReturnStmt) list.add("ReturnStmt");
+        if (unit instanceof ReturnVoidStmt) list.add("ReturnVoidStmt");
+        if (unit instanceof TableSwitchStmt) list.add("TableSwitchStmt");
+        if (unit instanceof ThrowStmt) list.add("ThrowStmt");
+        return list;
+    }
+
+    public static List<String> expTypes (Value value) {
+        List<String> list = new ArrayList<String> (); 
+        if (value instanceof AddExpr) list.add("AddExpr");
+        if (value instanceof AndExpr) list.add("AndExpr");
+        if (value instanceof AnyNewExpr) list.add("AnyNewExpr");
+        if (value instanceof ArrayRef) list.add("ArrayRef");
+        if (value instanceof BinopExpr) list.add("BinopExpr");
+        if (value instanceof CastExpr) list.add("CastExpr");
+        if (value instanceof CaughtExceptionRef) list.add("CaughtExceptionRef");
+        if (value instanceof CmpExpr) list.add("CmpExpr");
+        if (value instanceof CmpgExpr) list.add("CmpgExpr");
+        if (value instanceof CmplExpr) list.add("CmplExpr");
+        if (value instanceof ConcreteRef) list.add("ConcreteRef");
+        if (value instanceof ConditionExpr) list.add("ConditionExpr");
+        if (value instanceof DivExpr) list.add("DivExpr");
+        if (value instanceof DynamicInvokeExpr) list.add("DynamicInvokeExpr");
+        if (value instanceof EqExpr) list.add("EqExpr");
+        if (value instanceof Expr) list.add("Expr");
+        if (value instanceof FieldRef) list.add("FieldRef");
+        if (value instanceof GeExpr) list.add("GeExpr");
+        if (value instanceof GtExpr) list.add("GtExpr");
+        if (value instanceof IdentityRef) list.add("IdentityRef");
+        if (value instanceof Immediate) list.add("Immediate");
+        if (value instanceof InstanceFieldRef) list.add("InstanceFieldRef");
+        if (value instanceof InstanceInvokeExpr) list.add("InstanceInvokeExpr");
+        if (value instanceof InstanceOfExpr) list.add("InstanceOfExpr");
+        if (value instanceof InterfaceInvokeExpr) list.add("InterfaceInvokeExpr");
+        if (value instanceof InvokeExpr) list.add("InvokeExpr");
+        if (value instanceof LeExpr) list.add("LeExpr");
+        if (value instanceof LengthExpr) list.add("LengthExpr");
+        if (value instanceof Local) list.add("Local");
+        if (value instanceof LtExpr) list.add("LtExpr");
+        if (value instanceof MulExpr) list.add("MulExpr");
+        if (value instanceof NeExpr) list.add("NeExpr");
+        if (value instanceof NegExpr) list.add("NegExpr");
+        if (value instanceof NewArrayExpr) list.add("NewArrayExpr");
+        if (value instanceof NewExpr) list.add("NewExpr");
+        if (value instanceof NewInvokeExpr) list.add("NewInvokeExpr");
+        if (value instanceof NewMultiArrayExpr) list.add("NewMultiArrayExpr");
+        if (value instanceof OrExpr) list.add("OrExpr");
+        if (value instanceof PhiExpr) list.add("PhiExpr");
+        if (value instanceof PiExpr) list.add("PiExpr");
+        if (value instanceof Ref) list.add("Ref");
+        if (value instanceof RemExpr) list.add("RemExpr");
+        if (value instanceof ShimpleExpr) list.add("ShimpleExpr");
+        if (value instanceof ShlExpr) list.add("ShlExpr");
+        if (value instanceof ShrExpr) list.add("ShrExpr");
+        if (value instanceof SpecialInvokeExpr) list.add("SpecialInvokeExpr");
+        if (value instanceof StaticInvokeExpr) list.add("StaticInvokeExpr");
+        if (value instanceof SubExpr) list.add("SubExpr");
+        if (value instanceof UnopExpr) list.add("UnopExpr");
+        if (value instanceof UshrExpr) list.add("UshrExpr");
+        if (value instanceof VirtualInvokeExpr) list.add("VirtualInvokeExpr");
+        if (value instanceof XorExpr) list.add("XorExpr");
+        return list;
     }
 }

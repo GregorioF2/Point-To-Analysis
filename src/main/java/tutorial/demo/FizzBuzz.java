@@ -1,10 +1,23 @@
-public class FizzBuzz {
+
+class Parent {
+    int ParentMethod() {
+        return 123;
+    }
+}
+
+
+public class FizzBuzz extends Parent {
 
     public int fizzProp;
-    public void printFizzBuzz(int k){
+    public int printFizzBuzz(int k){
         this.fizzProp = 2;
-
+        int test;
+        test = 2;
+        int intParameter = 4;
         Test2 t = new Test2();
+        int fparam = t.testMethod(intParameter);
+        int gparam = Test.TestFunc() + fparam;
+        return ParentMethod();
     }
 
     public void fizzBuzz(int n){
