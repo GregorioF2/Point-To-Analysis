@@ -36,7 +36,6 @@ public class DatalogIntegrator {
         this.createFW("formal_ret", ".facts");
         this.createFW("actual_arg", ".facts");
         this.createFW("actual_ret", ".facts");
-        this.createFW("var_type", ".facts");
     }
 
 
@@ -241,17 +240,6 @@ public class DatalogIntegrator {
         }
     }
 
-    public void WriteVarType(SootMethod method, Local var, int type) {
-        try {
-            FileWriter fw = this.fwMap.get("var_type");
-            fw.write(writeFact(varName(method, var), String.valueOf(type)));
-        } catch (IOException e) {
-            System.out.println("Error: " + e.toString());
-            e.printStackTrace();
-        }
-    }
-
-
     public void CloseWriters() {
         try {
             for (FileWriter fw : this.fwMap.values()) {
@@ -262,5 +250,4 @@ public class DatalogIntegrator {
             e.printStackTrace();
         }
     }
-
 }

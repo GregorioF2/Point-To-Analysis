@@ -67,10 +67,6 @@ public class PointsToAnalysis {
             c++;
         }
 
-        for (Local l: body.getLocals()) {
-            integrator.WriteVarType(method, l, l.getType().getNumber());
-        }
-
         for (int i = 0; i < body.getMethod().getParameterCount(); i++) {
             integrator.WriteFormalArgFact(body.getMethod(), i, body.getParameterLocal(i));
         }
