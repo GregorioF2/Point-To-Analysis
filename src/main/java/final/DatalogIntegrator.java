@@ -38,7 +38,6 @@ public class DatalogIntegrator {
         this.createFW("actual_ret", ".facts");
     }
 
-
     ////////
     // PRIVATE FUNCTIONS
     ////////

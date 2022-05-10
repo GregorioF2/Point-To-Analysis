@@ -1,3 +1,5 @@
+package test;
+
 class Parent {
     public Test Proxy(Test j){
         return j;
