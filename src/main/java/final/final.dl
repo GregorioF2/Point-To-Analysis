@@ -62,8 +62,8 @@ var_points_to(to, heap) :-
 .input reachable(IO=file, delimiter=";")
 
 
-.output reachable(IO=file)
-.output var_points_to(IO=file)
-.output field_points_to(IO=file)
-.output call_graph(IO=file)
-.output inter_proc_assign(IO=file)
+.output reachable(IO=file,delimiter=";")
+.output var_points_to(IO=file,delimiter=";")
+.output field_points_to(IO=file,delimiter=";")
+.output call_graph(IO=file,delimiter=";")
+.output inter_proc_assign(IO=file,delimiter=";")

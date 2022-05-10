@@ -19,7 +19,8 @@ public class DatalogIntegrator {
     public DatalogIntegrator() {
         String currentTimeStamp = DatalogIntegrator.formatter.format(new Date());
         String currentDir = System.getProperty("user.dir");
-        String path = currentDir + "/" + currentTimeStamp;
+        // String path = currentDir + "/" + currentTimeStamp;
+        String path = currentDir + "/DLInput";
         this.dirPath = path;
         this.heap = 0;
         File file = new File(path);
@@ -44,7 +45,7 @@ public class DatalogIntegrator {
     // PRIVATE FUNCTIONS
     ////////
     private String uName(SootMethod method) {
-        return String.join("::", method.getSignature().split(" "));
+        return String.join("__", method.getSignature().split(" "));
     }
 
     private String heapType(){

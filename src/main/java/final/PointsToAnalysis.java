@@ -19,10 +19,9 @@ import java.util.stream.Collectors;
 import java.io.File;
 
 public class PointsToAnalysis {
-    public static String sourceDirectory = System.getProperty("user.dir") + File.separator + "src/main/java/tutorial/demo";
-    public static String clsName = "FizzBuzz";
-    public static String methodName = "printFizzBuzz";
-    public static String pckg = "FizzBuzz";
+    public static String sourceDirectory = System.getProperty("user.dir") + File.separator + "src/main/java/final/test";
+    public static String clsName = "CaseOne";
+    public static int c = 1;
 
     public static void setupSoot() {
         G.reset();
@@ -41,7 +40,6 @@ public class PointsToAnalysis {
 
         SootClass mainClass = Scene.v().getSootClass(clsName);
         List<SootMethod> methods = mainClass.getMethods();
-        SootMethod sm = mainClass.getMethodByName(methodName);
         List<Body> bodys = methods.stream()
         .map(method -> method.retrieveActiveBody())
         .collect(Collectors.toList());;
@@ -55,7 +53,6 @@ public class PointsToAnalysis {
     public static void AnalyzeBody(soot.Body body, SootMethod method, DatalogIntegrator integrator) {
         System.out.println("\n\n New method: " + method.getName() + ". Signature: " + method.getSignature() + ". Subsignature: " + method.getSubSignature() + "\n\n");
         integrator.WriteReachableFact(method);
-        int c = 1;
         for (Unit u : body.getUnits()) {
             String unitString = u.toString();
             int margin = 90 - unitString.length();
