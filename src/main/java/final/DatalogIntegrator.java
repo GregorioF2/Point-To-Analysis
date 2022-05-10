@@ -26,7 +26,6 @@ public class DatalogIntegrator {
         file.mkdirs();
 
         this.createFW("alloc", ".facts");
-        this.createFW("heap", ".facts");
         this.createFW("move", ".facts");
         this.createFW("load", ".facts");
         this.createFW("store", ".facts");
@@ -38,7 +37,6 @@ public class DatalogIntegrator {
         this.createFW("actual_ret", ".facts");
         this.createFW("this_var", ".facts");
         this.createFW("var_type", ".facts");
-        this.createFW("call_graph", ".facts");
     }
 
 
@@ -65,11 +63,7 @@ public class DatalogIntegrator {
     }
 
     private String writeFact(String... args) {
-        String res = "";
-        for (String s: args) {
-            res += " " + s;
-        }
-        return res.trim() + "\n";
+        return String.join(";", args) + "\n";
     }
 
     private void createFW(String key, String extension) {
@@ -90,7 +84,7 @@ public class DatalogIntegrator {
     private void writeAlloc(SootMethod inMeth, soot.Local leftOp, soot.jimple.NewExpr rightOp) {
         try {
             FileWriter fw = this.fwMap.get("alloc");
-            fw.write(writeFact(varName(inMeth, leftOp), heapType()));
+            fw.write(writeFact(varName(inMeth, leftOp), heapType(), uName(inMeth)));
         } catch (IOException e) {
             System.out.println("Error: " + e.toString());
             e.printStackTrace();
@@ -211,7 +205,7 @@ public class DatalogIntegrator {
                     soot.Local l = (soot.Local) ((soot.jimple.InstanceInvokeExpr)ie).getBase();
                     base = l.getName();
                 }
-                this.writeVCall(base, ie.getMethod(), line, inMeth);
+                writeVCall(base, ie.getMethod(), line, inMeth);
                 int argCount = ie.getArgCount();
                 for (int i = 0; i < argCount; i++){
                     Local l = (Local)ie.getArg(i);

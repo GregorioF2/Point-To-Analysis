@@ -10,19 +10,15 @@ public class FizzBuzz extends Parent {
 
     public int fizzProp;
     public int printFizzBuzz(int k){
-        this.fizzProp = 2;
-        int test;
-        test = 2;
-        int intParameter = 4;
         Test2 t = new Test2();
-        int fparam = t.testMethod(intParameter);
-        int gparam = Test.TestFunc() + fparam;
+        Test2 t2 = new Test2();
+        Test2 t3 = t;
+        Test2 t4 = proxy(t2);
         return ParentMethod();
     }
 
-    public void fizzBuzz(int n){
-        for (int i=1; i<=n; i++)
-            printFizzBuzz(i);
+    public Test2 proxy(Test2 j){
+        return j;
     }
 }
 class Test {

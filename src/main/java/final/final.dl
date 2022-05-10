@@ -1,19 +1,69 @@
-.decl alloc(var: symbol, heap: symbol)
-.input alloc
-
+.decl alloc(var: symbol, heap: symbol, inMeth: symbol)
 .decl move(to: symbol, from: symbol)
-.input move
-
 .decl load(to: symbol, base:symbol, field: symbol)
-.input load
-
 .decl store(base:symbol, field:symbol, from: symbol)
-.input store
-
 .decl vcall(base:symbol, sig:symbol, invocation:symbol, inMeth: symbol)
-.input vcall
+.decl formal_arg(meth:symbol, n:symbol, arg:symbol)
+.decl actual_arg(invo:symbol, n:symbol, arg:symbol)
+.decl formal_ret(meth:symbol, ret:symbol)
+.decl actual_ret(invo:symbol, var:symbol)
+.decl this_var(meth:symbol, this:symbol)
+.decl var_type(var:symbol, type:symbol)
+.decl reachable(meth:symbol)
+
+/// computed
+.decl var_points_to(var: symbol, heap: symbol)
+.decl field_points_to(base_h: symbol, fld: symbol, heap: symbol)
+.decl call_graph(invo: symbol, meth: symbol)
+.decl inter_proc_assign(to: symbol, from: symbol)
+
+var_points_to(var, heap) :-
+    reachable(meth), alloc(var, heap, meth).
+
+var_points_to(to, heap) :-
+    move(to, from), var_points_to(from, heap).
+
+field_points_to(base_h, fld, heap) :-
+    store(base, fld, from), var_points_to(from, heap),
+    var_points_to(base, base_h).
+
+var_points_to(to, heap):-
+    load(to, base, fld), var_points_to(base, base_h),
+    field_points_to(base_h, fld, heap).
 
 
+call_graph(invo, meth) :-
+    vcall(_, meth, invo, _).
+
+inter_proc_assign(to, from) :- 
+    call_graph(invo, meth),
+    formal_arg(meth, n, to), actual_arg(invo, n, from).
+
+inter_proc_assign(to, from) :- 
+    call_graph(invo, meth),
+    formal_ret(meth, from), actual_ret(invo, to).
+
+var_points_to(to, heap) :-
+    inter_proc_assign(to, from),
+    var_points_to(from, heap).
 
 
+.input alloc(IO=file, delimiter=";")
+.input move(IO=file, delimiter=";")
+.input load(IO=file, delimiter=";")
+.input store(IO=file, delimiter=";")
+.input vcall(IO=file, delimiter=";")
+.input formal_arg(IO=file, delimiter=";")
+.input actual_arg(IO=file, delimiter=";")
+.input formal_ret(IO=file, delimiter=";")
+.input actual_ret(IO=file, delimiter=";")
+.input this_var(IO=file, delimiter=";")
+.input var_type(IO=file, delimiter=";")
+.input reachable(IO=file, delimiter=";")
 
+
+.output reachable(IO=file)
+.output var_points_to(IO=file)
+.output field_points_to(IO=file)
+.output call_graph(IO=file)
+.output inter_proc_assign(IO=file)

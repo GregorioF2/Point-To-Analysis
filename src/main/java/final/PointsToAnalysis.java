@@ -60,7 +60,7 @@ public class PointsToAnalysis {
             String unitString = u.toString();
             int margin = 90 - unitString.length();
             String marginString = new String(new char[margin]).replace("\0", " ");
-            System.out.println("----> " + u.toString() + marginString + "  // " + String.join(", ", infoLogger.stmtTypes(u)));
+            System.out.println(String.valueOf(c) +  "----> " + u.toString() + marginString + "  // " + String.join(", ", infoLogger.stmtTypes(u)));
             boolean isStmt = u instanceof Stmt;
             if (!isStmt) {
                 continue;
