@@ -7,7 +7,6 @@
 .decl actual_arg(invo:symbol, n:symbol, arg:symbol)
 .decl formal_ret(meth:symbol, ret:symbol)
 .decl actual_ret(invo:symbol, var:symbol)
-.decl this_var(meth:symbol, this:symbol)
 .decl var_type(var:symbol, type:symbol)
 .decl reachable(meth:symbol)
 
@@ -57,7 +56,6 @@ var_points_to(to, heap) :-
 .input actual_arg(IO=file, delimiter=";")
 .input formal_ret(IO=file, delimiter=";")
 .input actual_ret(IO=file, delimiter=";")
-.input this_var(IO=file, delimiter=";")
 .input var_type(IO=file, delimiter=";")
 .input reachable(IO=file, delimiter=";")
 

@@ -75,8 +75,5 @@ public class PointsToAnalysis {
             integrator.WriteFormalArgFact(body.getMethod(), i, body.getParameterLocal(i));
         }
         
-        if (!body.getMethod().isStatic()) {
-            integrator.WriteThisVarFact(body.getMethod(), body.getThisLocal());
-        }
     }
 }

@@ -1,4 +1,6 @@
 target/*
 sootOutput/*
 *.iml
-.idea/*
+.idea/
+DLInput/*.facts
+DLOutput/*.csv
