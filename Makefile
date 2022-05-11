@@ -3,8 +3,8 @@ DLIN = DLInput
 FINAL_DIR = src/main/java/final
 
 clean:
-	rm $(DLOUT)/*.csv
-	rm $(DLIN)/*.facts
+	rm ./$(DLOUT)/*.csv
+	rm ./$(DLIN)/*.facts
 
 build:
 	mvn clean install

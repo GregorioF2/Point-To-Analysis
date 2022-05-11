@@ -36,21 +36,22 @@ public class PointsToAnalysis {
         DatalogIntegrator integrator = new DatalogIntegrator();
 
         List<SootClass> classes = Scene.v().getClasses().stream()
-        .filter(c -> c.getPackageName().startsWith("test"))
+        .filter(c -> c.getPackageName() == "")
         .collect(Collectors.toList());
         for (SootClass c: classes) {
-            System.out.println("Class: " + c.getName());
+            System.out.println("Class: " + c.getName() + ". package: "+ c.getPackageName());
         }
 
-        SootClass mainClass = Scene.v().getSootClass(clsName);
-        List<SootMethod> methods = mainClass.getMethods();
-        List<Body> bodys = methods.stream()
-        .map(method -> method.retrieveActiveBody())
-        .collect(Collectors.toList());;
-
-        for (Body body: bodys) {
-            PointsToAnalysis.AnalyzeBody(body, body.getMethod(), integrator);
+        for (SootClass c: classes) {
+            List<SootMethod> methods = c.getMethods();
+            List<Body> bodys = methods.stream()
+            .map(method -> method.retrieveActiveBody())
+            .collect(Collectors.toList());
+            for (Body body: bodys) {
+                PointsToAnalysis.AnalyzeBody(body, body.getMethod(), integrator);
+            }
         }
+
         integrator.CloseWriters();
     }
 

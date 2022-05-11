@@ -1,5 +1,3 @@
-package test;
-
 class Parent {
     public Test Proxy(Test j){
         return j;
@@ -7,12 +5,12 @@ class Parent {
 }
 
 public class CaseOne extends Parent {
-    public int fizzProp;
     public int CaseOneMethod(int k){
         Test t = new Test();
         Test t2 = new Test();
         Test t3 = t;
         Test t4 = Proxy(t2);
+        Test t5 = new Test();
         return 0;
     }
 }
