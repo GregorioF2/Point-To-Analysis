@@ -35,6 +35,7 @@ public class PointsToAnalysis {
 
   public static void main(String[] args) {
     String testCase = args.length > 0 ? args[0] : "CaseOne";
+    System.out.println("testCase: " + testCase);
     setupSoot(testCase);
     DatalogIntegrator integrator = new DatalogIntegrator();
 

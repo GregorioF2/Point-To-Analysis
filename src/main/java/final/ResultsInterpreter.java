@@ -12,16 +12,25 @@ public class ResultsInterpreter {
     System.out.println("/// RESULTS");
     System.out.println("////////////////////////////\n\n\n");
     try {
-      File output = new File("./DLOutput/var_points_to.csv");
-      if (!output.exists()) {
-        System.out.println("Error output not ready");
+      File varPointsTo = new File("./DLOutput/var_points_to.csv");
+      if (!varPointsTo.exists()) {
+        System.out.println("Error varPointsTo not ready");
         return;
       }
-      Scanner sc = new Scanner(output);
+
+      File fieldPointsTo = new File("./DLOutput/field_points_to.csv");
+      if (!fieldPointsTo.exists()) {
+        System.out.println("Error fieldPointsTo not ready");
+        return;
+      }
+      Scanner scannerVarPointsTo = new Scanner(varPointsTo);
+      scannerVarPointsTo.useDelimiter("\n");
+      Scanner scannerFieldPointsTO = new Scanner(fieldPointsTo);
+      scannerFieldPointsTO.useDelimiter("\n");
       HashMap<String, List<String>> heapVars = new HashMap<String, List<String>>();
-      sc.useDelimiter("\n");
-      while (sc.hasNext()) {
-        String[] row = sc.next().split(";");
+
+      while (scannerVarPointsTo.hasNext()) {
+        String[] row = scannerVarPointsTo.next().split(";");
         String heap = row[1];
         String varMethod = row[0];
 
