@@ -4,3 +4,4 @@ sootOutput/*
 .idea/
 DLInput/*.facts
 DLOutput/*.csv
+.DS_Store

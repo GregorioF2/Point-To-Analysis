@@ -11,6 +11,7 @@ public class CaseOne extends Parent {
         Test t3 = t;
         Test t4 = Proxy(t2);
         Test t5 = new Test();
+        Test t6 = Proxy(t5);
         return 0;
     }
 }

@@ -12,5 +12,6 @@ build:
 run:
 	java -cp target/leak-analysis-1.0-SNAPSHOT-jar-with-dependencies.jar  tp_final.PointsToAnalysis
 	souffle --fact-dir=./$(DLIN)  --output-dir=./$(DLOUT)  $(FINAL_DIR)/final.dl
+	java -cp target/leak-analysis-1.0-SNAPSHOT-jar-with-dependencies.jar  tp_final.ResultsInterpreter
 
 full: build run
