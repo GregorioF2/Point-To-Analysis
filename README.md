@@ -1,4 +1,7 @@
-**Requirements**
+# Overview
+This project is a code analyzer aimed to detect possible aliasing between variables, is built using and integration between java.Soot and Datalog. Based on the implementation of Andersen's algorithm, explained in detail in: https://yanniss.github.io/points-to-tutorial15.pdf
+
+# Requirements**
 - *Maven:*
   - download: http://maven.apache.org/download.cgi
   - install: http://maven.apache.org/install.html
@@ -14,7 +17,7 @@
 ```(With higher version of java, the following error appear `java.lang.RuntimeException: Error: cannot find rt.jar.`. Error kindof explained in here https://github.com/eclipse-cognicrypt/CogniCrypt/issues/202#issuecomment-431386825)```
 
 
-## Steps to run the solution
+# Steps to run the solution
 
 - make build
 - make run
