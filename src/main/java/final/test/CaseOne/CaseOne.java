@@ -1,26 +1,26 @@
-class Parent {
+class CaseOneParent {
 
-  public Test Proxy(Test j) {
+  public CaseOneTest Proxy(CaseOneTest j) {
     return j;
   }
 }
 
-public class CaseOne extends Parent {
+public class CaseOne extends CaseOneParent {
 
   public int CaseOneMethod(int k) {
-    Test t = new Test();
-    Test t2 = new Test();
-    Test t3 = t;
-    Test t4 = Proxy(t2);
-    Test t5 = new Test();
-    Test t6 = Proxy(t5);
+    CaseOneTest t = new CaseOneTest();
+    CaseOneTest t2 = new CaseOneTest();
+    CaseOneTest t3 = t;
+    CaseOneTest t4 = Proxy(t2);
+    CaseOneTest t5 = new CaseOneTest();
+    CaseOneTest t6 = Proxy(t5);
     return 0;
   }
 }
 
-class Test {
+class CaseOneTest {
 
-  public int testMethod(int k) {
+  public int testsMethod(int k) {
     return k;
   }
 }

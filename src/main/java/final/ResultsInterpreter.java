@@ -5,6 +5,15 @@ import java.util.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
+class HeapField {
+  String heap;
+  String field;
+  HeapField(String heap, String field) {
+    this.heap = heap;
+    this.field = field;
+  }
+}
+
 public class ResultsInterpreter {
 
   public static void main(String[] args) {
@@ -27,7 +36,9 @@ public class ResultsInterpreter {
       scannerVarPointsTo.useDelimiter("\n");
       Scanner scannerFieldPointsTO = new Scanner(fieldPointsTo);
       scannerFieldPointsTO.useDelimiter("\n");
+
       HashMap<String, List<String>> heapVars = new HashMap<String, List<String>>();
+      HashMap<String, List<HeapField>> heapFields = new HashMap<String, List<HeapField>>();
 
       while (scannerVarPointsTo.hasNext()) {
         String[] row = scannerVarPointsTo.next().split(";");
@@ -43,6 +54,17 @@ public class ResultsInterpreter {
         List<String> heapList = heapVars.get(heap);
         heapList.add(varMethod);
       }
+      while (scannerFieldPointsTO.hasNext()) {
+        String[] row = scannerFieldPointsTO.next().split(";");
+        String heapBase = row[0];
+        String field = row[1];
+        String heapTo = row[2];
+        if (!heapFields.containsKey(heapTo)) {
+          heapFields.put(heapTo, new LinkedList<HeapField>());
+        }
+        List<HeapField> heapList = heapFields.get(heapTo);
+        heapList.add(new HeapField(heapBase, field));
+      }
 
       for (String key : heapVars.keySet()) {
         List<String> heapVar = heapVars.get(key);
@@ -55,6 +77,22 @@ public class ResultsInterpreter {
           String method = varMethod[0];
           String var = varMethod[1];
           System.out.println("---> Variable: " + var + ". On method " + method);
+        }
+        if (heapFields.containsKey(key)) {
+          List<HeapField> hflds = heapFields.get(key);
+          System.out.println("Together with the fields: ");
+          for (HeapField hf: hflds) {
+            String h = hf.heap;
+            String fld = hf.field;
+            List<String> varsOfFields = heapVars.get(h);
+            for (String hv: varsOfFields) {
+              String[] vm = hv.split("::");
+              String m = vm[0];
+              String v = vm[1];
+              System.out.println("---> Field: " + fld + " of variable: " + v + ". On method " + m);
+            }
+          }
+          
         }
         System.out.print("\n");
       }
