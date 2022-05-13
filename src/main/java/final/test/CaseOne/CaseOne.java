@@ -6,14 +6,17 @@ class CaseOneParent {
 }
 
 public class CaseOne extends CaseOneParent {
-
+// Expected aliasing alert between the following groups:
+// variableOne - variableThree 
+// variableTwo - variableFour  - variableSix
+// variableFive - variableFour  - variableSix
   public int CaseOneMethod(int k) {
-    CaseOneTest t = new CaseOneTest();
-    CaseOneTest t2 = new CaseOneTest();
-    CaseOneTest t3 = t;
-    CaseOneTest t4 = Proxy(t2);
-    CaseOneTest t5 = new CaseOneTest();
-    CaseOneTest t6 = Proxy(t5);
+    CaseOneTest variableOne = new CaseOneTest();
+    CaseOneTest variableTwo = new CaseOneTest();
+    CaseOneTest variableThree = variableOne;
+    CaseOneTest variableFour = Proxy(variableTwo);
+    CaseOneTest variableFive = new CaseOneTest();
+    CaseOneTest variableSix = Proxy(variableFive);
     return 0;
   }
 }

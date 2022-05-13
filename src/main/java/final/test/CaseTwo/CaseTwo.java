@@ -6,7 +6,8 @@ class CaseTwoParent {
 }
 
 public class CaseTwo extends CaseTwoParent {
-
+// Expected aliasing alert between the following groups:
+// variableFour - variableThree - variableOne.fieldOne 
   public int CaseTwoMethod() {
     CaseTwoTest variableOne = new CaseTwoTest();
     CaseTwoTest variableTwo = new CaseTwoTest();
