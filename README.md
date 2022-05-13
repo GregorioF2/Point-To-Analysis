@@ -1,5 +1,5 @@
 **Requirements**
-- *maven:*
+- *Maven:*
   - download: http://maven.apache.org/download.cgi
   - install: http://maven.apache.org/install.html
 
@@ -7,22 +7,17 @@
   - install https://github.com/shyiko/jabba
   - run jabba install zulu@1.8.92
 
+- *Souffle:*
+  - brew install --HEAD souffle-lang/souffle/souffle
+
+
 ```(With higher version of java, the following error appear `java.lang.RuntimeException: Error: cannot find rt.jar.`. Error kindof explained in here https://github.com/eclipse-cognicrypt/CogniCrypt/issues/202#issuecomment-431386825)```
 
-**Run the analysis**
 
-Leak sensible vairables analysis.
+## Steps to run the solution
 
-To test the analsysis with the example implemented on `src/main/java/examples`, just run from `srs` folder the command
+- make build
+- make run
 
-```
-mvn clean install compile
-
-java -cp target/leak-analysis-1.0-SNAPSHOT-jar-with-dependencies.jar  Launcher -keep-line-number -f J -w -pp -cp target/classes/ examples.Main
-```
-
-
-**To install Datalog** (Docs:  https://www.ccs.neu.edu/home/ramsdell/tools/datalog/datalog.html)
-- Download: https://wwu-pi.github.io/tutorials/lectures/lsp/020_install_des.html
-- Use zulu@1.8.92
-- sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+## Test cases
+On `src/main/java/final/test` exist diferent test cases to run the analysis on. By default the solution will run the `CaseOne` but to run the other ones for example must run the command: `make class=CaseTwo run `

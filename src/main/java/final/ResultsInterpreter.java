@@ -6,8 +6,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 class HeapField {
+
   String heap;
   String field;
+
   HeapField(String heap, String field) {
     this.heap = heap;
     this.field = field;
@@ -49,7 +51,7 @@ public class ResultsInterpreter {
           heapVars.put(heap, new LinkedList<String>());
         }
         if (varMethod.contains("$")) {
-            continue;
+          continue;
         }
         List<String> heapList = heapVars.get(heap);
         heapList.add(varMethod);
@@ -81,18 +83,19 @@ public class ResultsInterpreter {
         if (heapFields.containsKey(key)) {
           List<HeapField> hflds = heapFields.get(key);
           System.out.println("Together with the fields: ");
-          for (HeapField hf: hflds) {
+          for (HeapField hf : hflds) {
             String h = hf.heap;
             String fld = hf.field;
             List<String> varsOfFields = heapVars.get(h);
-            for (String hv: varsOfFields) {
+            for (String hv : varsOfFields) {
               String[] vm = hv.split("::");
               String m = vm[0];
               String v = vm[1];
-              System.out.println("---> Field: " + fld + " of variable: " + v + ". On method " + m);
+              System.out.println(
+                "---> Field: " + fld + " of variable: " + v + ". On method " + m
+              );
             }
           }
-          
         }
         System.out.print("\n");
       }
