@@ -13,7 +13,7 @@ import soot.jimple.internal.JIfStmt;
 import soot.options.Options;
 import soot.toolkits.graph.ClassicCompleteUnitGraph;
 import soot.toolkits.graph.UnitGraph;
-import tp.utils.infoLogger;
+import tp_final.utils.infoLogger;
 
 public class PointsToAnalysis {
 

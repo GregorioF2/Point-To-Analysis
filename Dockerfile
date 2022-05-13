@@ -7,5 +7,3 @@ RUN wget https://souffle-lang.github.io/ppa/souffle-key.public -O /usr/share/key
 RUN echo "deb [signed-by=/usr/share/keyrings/souffle-archive-keyring.gpg] https://souffle-lang.github.io/ppa/ubuntu/ stable main" | tee /etc/apt/sources.list.d/souffle.list
 RUN apt-get update; apt-get install souffle
 
-
-apt-get install r-base

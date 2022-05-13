@@ -1,6 +1,0 @@
-
-
-run soot -> java -cp target/leak-analysis-1.0-SNAPSHOT-jar-with-dependencies.jar soot.Main -cp ./target/classes/:/home/gregorio/.jabba/jdk/zulu@1.8.92/jre/lib/rt.jar FizzBuzz
-
-
-run tutorial -> java -cp target/leak-analysis-1.0-SNAPSHOT-jar-with-dependencies.jar  tutorial.HelloSoot

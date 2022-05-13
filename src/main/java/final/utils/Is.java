@@ -1,4 +1,4 @@
-package tp.utils;
+package tp_final.utils;
 
 public class Is {
     public static void sensible(Object obj) {
